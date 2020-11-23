@@ -20,6 +20,14 @@
         ${descripcion}
      </div>
     </script>
+
+    <div>
+        <button id="BtnApi" type="button" class="btnApicss" title="Obtener API" value="Obtener Value"></button>
+    </div>
+     
+    <div id="content3">
+       
+    </div>
 </body>
 
 <script type="text/javascript">
@@ -47,6 +55,46 @@
 
         $('#idbutton2').bind('click', function () {
             console.log('click');
+        });
+
+        $('#BtnApi').bind('click', function () {
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44392/WeatherForecast/data",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                    var table = $("<table><tr><th>Prueba</th></tr>");
+                    table.append("<tr><td>City:</td><td>" + result["titulo"] + "</td></tr>");
+                    table.append("<tr><td>City:</td><td>" + result["descripcion"] + "</td></tr>");
+                    table.append("<tr><td>City:</td><td>" + result["time"] + "</td></tr>");
+
+                    $("#content3").html(table);
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+
+
+            //$.ajax({
+            //    url: 'https://localhost:44392/WeatherForecast/data',
+            //    headers: {
+            //        'Content-Type': 'application/x-www-form-urlencoded'
+            //    },
+            //    type: "GET",
+            //    dataType: "json",
+            //    data: {
+            //    },
+            //    success: function (result) {
+            //        console.log(result.titulo + ' ' + result.descripcion + ' ' + result.time);
+            //    },
+            //    error: function () {
+            //        console.log("error");
+            //    }
+            //});
+
+
         });
 
     });
